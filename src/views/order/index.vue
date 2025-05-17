@@ -44,14 +44,14 @@
                     </el-select>
                     <!--                    <el-input class="w-[280px]" v-model="queryParams.status" clearable placeholder="请输入状态" />-->
                 </el-form-item>
-                
+
 <!--                <el-form-item label="结束处理时间" prop="end_time">-->
 <!--                    <daterange-picker-->
 <!--                        v-model:startTime="queryParams.start_time"-->
 <!--                        v-model:endTime="queryParams.end_time"-->
 <!--                    />-->
 <!--                </el-form-item>-->
-                
+
                 <el-form-item>
                     <el-button type="primary" @click="resetPage">查询</el-button>
                     <el-button @click="resetParams">重置</el-button>

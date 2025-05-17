@@ -15,6 +15,7 @@
                 <el-form-item label="运营商" prop="account_type">
                     <el-select style="width: 150px;margin-left: 10px" v-model="queryParams.account_type"
                                placeholder="请选择运营商">
+                        <el-option label="全部" :value="0" />
                         <el-option label="移动" :value="1" />
                         <el-option label="联通" :value="2" />
                         <el-option label="电信" :value="3" />
@@ -58,7 +59,7 @@
                 <el-button
                     :disabled="!selectData.length"
                     type="primary"
-                    @click="handleDelete(selectData)"
+                    @click="handleBatchGenBalance(selectData)"
                 >
                     批量查询余额
                 </el-button>
@@ -89,14 +90,14 @@
             <div class="mt-4">
                 <el-table :data="pager.lists" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="55" />
-                    <el-table-column label="单号" prop="sn" show-overflow-tooltip width="170" />
-                    <el-table-column label="客户" prop="user_show" show-overflow-tooltip />
-                    <el-table-column label="充值账户" prop="account_show" show-overflow-tooltip width="170" />
+                    <el-table-column label="单号" prop="sn" show-overflow-tooltip width="180" />
+                    <el-table-column label="客户" prop="user_show" show-overflow-tooltip min-width="100" />
+                    <el-table-column label="充值账户" prop="account_show" show-overflow-tooltip min-width="180" />
                     <el-table-column label="金额" prop="price" show-overflow-tooltip />
-                    <el-table-column label="充值前余额" prop="up_price" show-overflow-tooltip />
-                    <el-table-column label="充值后余额" prop="down_price" show-overflow-tooltip />
+                    <el-table-column label="充值前余额" prop="up_price" show-overflow-tooltip min-width="95" />
+                    <el-table-column label="充值后余额" prop="down_price" show-overflow-tooltip min-width="95" />
                     <el-table-column label="到账金额" prop="balances_price" show-overflow-tooltip />
-                    <el-table-column label="状态" prop="status_show" show-overflow-tooltip>
+                    <el-table-column label="状态" prop="status_show" show-overflow-tooltip min-width="82">
                         <template #default="{ row }">
                             <span v-if="row.status == 1">
                                 待充值
@@ -126,7 +127,7 @@
                             <el-button
                                 type="primary"
                                 style="border-color: #5B87F0; background-color: #5B87F0"
-                                @click="handleEdit(row)"
+                                @click="handleGenBalance(row.id)"
                             >
                                 更新
                             </el-button>
@@ -172,12 +173,11 @@ import {
     apiSetSuccess,
     apiSetBatchSuccess,
     apiSetFail,
-    apiSetBatchFail
+    apiSetBatchFail,
+    apiGenBalance,
+    apiBatchGenBalance
 } from '@/api/consume_recharge'
 import feedback from '@/utils/feedback'
-import EditPopup from './edit.vue'
-
-const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 
 // 是否显示编辑框
 const showEdit = ref(false)
@@ -274,6 +274,25 @@ const handleBatchFail = async (data: any[]) => {
 
     await feedback.confirm('确定要设置批量失败？')
     await apiSetBatchFail({ ids })
+    getLists()
+}
+
+// 更新余额
+const handleGenBalance = async (id: number | any[]) => {
+    await feedback.confirm('确定要更新余额？')
+    await apiGenBalance({ id })
+    getLists()
+}
+
+// 批量更新余额
+const handleBatchGenBalance = async (data: any[]) => {
+    const ids = []
+    data.map(item => {
+        ids.unshift(item)
+    })
+
+    await feedback.confirm('确定要批量更新余额？')
+    await apiBatchGenBalance({ ids })
     getLists()
 }
 

@@ -39,3 +39,13 @@ export function apiSetFail(params: any) {
 export function apiSetBatchFail(params: any) {
     return request.post({ url: '/consumeRecharge/setBatchFail', params })
 }
+
+// 更新余额
+export function apiGenBalance(params: any) {
+    return request.post({ url: '/consumeRecharge/genBalance', params })
+}
+
+// 批量更新余额
+export function apiBatchGenBalance(params: any) {
+    return request.post({ url: '/consumeRecharge/batchGenBalance', params })
+}

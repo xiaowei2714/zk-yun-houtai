@@ -46,6 +46,8 @@
                         <el-option label="全部" :value="0" />
                         <el-option label="话费" :value="1" />
                         <el-option label="电费" :value="2" />
+                        <el-option label="话费快充" :value="3" />
+                        <el-option label="礼品卡" :value="4" />
                     </el-select>
                 </el-form-item>
                 <el-form-item>
@@ -97,7 +99,24 @@
                     <el-table-column label="充值前余额" prop="up_price" show-overflow-tooltip min-width="95" />
                     <el-table-column label="充值后余额" prop="down_price" show-overflow-tooltip min-width="95" />
                     <el-table-column label="到账金额" prop="balances_price" show-overflow-tooltip />
-                    <el-table-column label="状态" prop="status_show" show-overflow-tooltip min-width="82">
+                    <el-table-column label="类型" prop="type" show-overflow-tooltip min-width="82">
+                        <template #default="{ row }">
+                            <span v-if="row.type == 1" style="color: #8A2BE2;">
+                                话费
+                            </span>
+                            <span v-else-if="row.type == 2" style="color: #FFD700">
+                                电费
+                            </span>
+                            <span v-else-if="row.type == 3" style="color: #4ECDC4;">
+                                话费快充
+                            </span>
+                            <span v-else-if="row.type == 4" style="color: #FF4447">
+                                礼品卡
+                            </span>
+                            <span v-else></span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="状态" prop="status" show-overflow-tooltip min-width="82">
                         <template #default="{ row }">
                             <span v-if="row.status == 1">
                                 待充值

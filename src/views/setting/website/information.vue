@@ -41,6 +41,7 @@
                             </div>
                         </el-form-item>
                     </el-tab-pane>
+
                     <el-tab-pane label="前台设置" :name="2">
                         <el-form-item label="前台名称" prop="shop_name">
                             <div class="w-80">
@@ -99,6 +100,16 @@
                                 <div class="form-tips">查询一个电费所需扣除的Y币</div>
                             </div>
                         </el-form-item>
+                        <el-form-item label="礼品卡折扣" prop="card_discount">
+                            <div class="w-80">
+                                <el-input
+                                    type="number"
+                                    v-model.trim="formData.card_discount"
+                                    placeholder="请输入礼品卡折扣"
+                                ></el-input>
+                                <div class="form-tips">查询一个电费所需扣除的Y币</div>
+                            </div>
+                        </el-form-item>
                         <el-form-item label="分站价格" prop="substation_price">
                             <div class="w-80">
                                 <el-input
@@ -110,6 +121,141 @@
                             </div>
                         </el-form-item>
                     </el-tab-pane>
+
+                    <el-tab-pane label="分成设置" :name="7">
+                        <div class="x_title">话费充值</div>
+                        <el-form-item label="一级比例" prop="phone_first_ratio">
+                            <div class="w-80">
+                                <el-input
+                                    v-model.number="formData.phone_first_ratio"
+                                    type="number"
+                                    min="0"
+                                    max="100"
+                                    placeholder="请输入第一级比例分成（百分制）"
+                                ></el-input>
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="二级比例" prop="phone_second_ratio">
+                            <div class="w-80">
+                                <el-input
+                                    v-model.number="formData.phone_second_ratio"
+                                    min="0"
+                                    max="100"
+                                    placeholder="请输入第二级比例分成（百分制）"
+                                ></el-input>
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="三级比例" prop="phone_three_ratio">
+                            <div class="w-80">
+                                <el-input
+                                    v-model.number="formData.phone_three_ratio"
+                                    min="0"
+                                    max="100"
+                                    placeholder="请输入第三级比例分成（百分制）"
+                                ></el-input>
+                            </div>
+                        </el-form-item>
+
+                        <div class="x_title x_e_title">电费充值</div>
+                        <el-form-item label="一级比例" prop="electricity_first_ratio">
+                            <div class="w-80">
+                                <el-input
+                                    v-model.number="formData.electricity_first_ratio"
+                                    type="number"
+                                    min="0"
+                                    max="100"
+                                    placeholder="请输入第一级比例分成（百分制）"
+                                ></el-input>
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="二级比例" prop="electricity_second_ratio">
+                            <div class="w-80">
+                                <el-input
+                                    v-model.number="formData.electricity_second_ratio"
+                                    min="0"
+                                    max="100"
+                                    placeholder="请输入第二级比例分成（百分制）"
+                                ></el-input>
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="三级比例" prop="electricity_three_ratio">
+                            <div class="w-80">
+                                <el-input
+                                    v-model.number="formData.electricity_three_ratio"
+                                    min="0"
+                                    max="100"
+                                    placeholder="请输入第三级比例分成（百分制）"
+                                ></el-input>
+                            </div>
+                        </el-form-item>
+
+                        <div class="x_title x_q_title">话费快充</div>
+                        <el-form-item label="一级比例" prop="quickly_first_ratio">
+                            <div class="w-80">
+                                <el-input
+                                    v-model.number="formData.quickly_first_ratio"
+                                    type="number"
+                                    min="0"
+                                    max="100"
+                                    placeholder="请输入第一级比例分成（百分制）"
+                                ></el-input>
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="二级比例" prop="quickly_second_ratio">
+                            <div class="w-80">
+                                <el-input
+                                    v-model.number="formData.quickly_second_ratio"
+                                    min="0"
+                                    max="100"
+                                    placeholder="请输入第二级比例分成（百分制）"
+                                ></el-input>
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="三级比例" prop="quickly_three_ratio">
+                            <div class="w-80">
+                                <el-input
+                                    v-model.number="formData.quickly_three_ratio"
+                                    min="0"
+                                    max="100"
+                                    placeholder="请输入第三级比例分成（百分制）"
+                                ></el-input>
+                            </div>
+                        </el-form-item>
+
+                        <div class="x_title x_c_title">礼品卡</div>
+                        <el-form-item label="一级比例" prop="card_first_ratio">
+                            <div class="w-80">
+                                <el-input
+                                    v-model.number="formData.card_first_ratio"
+                                    type="number"
+                                    min="0"
+                                    max="100"
+                                    placeholder="请输入第一级比例分成（百分制）"
+                                ></el-input>
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="二级比例" prop="card_second_ratio">
+                            <div class="w-80">
+                                <el-input
+                                    v-model.number="formData.card_second_ratio"
+                                    min="0"
+                                    max="100"
+                                    placeholder="请输入第二级比例分成（百分制）"
+                                ></el-input>
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="三级比例" prop="card_three_ratio">
+                            <div class="w-80">
+                                <el-input
+                                    v-model.number="formData.card_three_ratio"
+                                    min="0"
+                                    max="100"
+                                    placeholder="请输入第三级比例分成（百分制）"
+                                ></el-input>
+                            </div>
+                        </el-form-item>
+                    </el-tab-pane>
+
                     <el-tab-pane label="邮件设置" :name="3">
                         <el-form-item label="SMTP服务器" prop="email_host">
                             <div class="w-80">
@@ -175,6 +321,7 @@
                             </div>
                         </el-form-item>
                     </el-tab-pane>
+
                     <el-tab-pane label="提示设置" :name="4">
                         <div class="xl:flex">
                             <el-card class="!border-none flex-1 xl:mr-4 mb-4" shadow="never">
@@ -197,6 +344,7 @@
                             </el-card>
                         </div>
                     </el-tab-pane>
+
                     <el-tab-pane label="邀请设置" :name="5">
                         <el-form-item label="邀请LOGO" prop="invite_logo">
                             <div>
@@ -205,6 +353,7 @@
                             </div>
                         </el-form-item>
                     </el-tab-pane>
+
                     <el-tab-pane label="客服设置" :name="6">
                         <el-form-item label="客服二维码" prop="kf_qrcode">
                             <div>
@@ -232,13 +381,13 @@
                         </el-form-item>
                     </el-tab-pane>
                 </el-tabs>
-<!--                <div class="text-xl font-medium mb-[20px]">后台设置</div>-->
+                <!--                <div class="text-xl font-medium mb-[20px]">后台设置</div>-->
 
             </el-card>
-<!--            <el-card shadow="never" class="!border-none mt-4">-->
-<!--                <div class="text-xl font-medium mb-[20px]">前台设置</div>-->
+            <!--            <el-card shadow="never" class="!border-none mt-4">-->
+            <!--                <div class="text-xl font-medium mb-[20px]">前台设置</div>-->
 
-<!--            </el-card>-->
+            <!--            </el-card>-->
             <el-card shadow="never" class="!border-none mt-4" style="display: none">
                 <div class="text-xl font-medium mb-[20px]">PC端设置</div>
                 <el-form-item label="PC端LOGO" prop="pc_logo">
@@ -321,6 +470,7 @@ const formData = reactive({
     reference_rate: '',
     query_hf: '',
     query_df: '',
+    card_discount: '',
     share_tips: '',
     share_rules: '',
     open_substation_tips: '',
@@ -328,7 +478,19 @@ const formData = reactive({
     invite_logo: '',
     kf_qrcode: '',
     kf_mobile: '',
-    kf_time: ''
+    kf_time: '',
+    phone_first_ratio: '',
+    phone_second_ratio: '',
+    phone_three_ratio: '',
+    electricity_first_ratio: '',
+    electricity_second_ratio: '',
+    electricity_three_ratio: '',
+    quickly_first_ratio: '',
+    quickly_second_ratio: '',
+    quickly_three_ratio: '',
+    card_first_ratio: '',
+    card_second_ratio: '',
+    card_three_ratio: '',
 })
 
 const queryParams = reactive({
@@ -422,4 +584,20 @@ const handleSubmit = async () => {
 getData()
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.x_title {
+    margin: 10px 47px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #8A2BE2;
+}
+.x_e_title {
+    color: #FFD700;
+}
+.x_q_title {
+    color: #4ECDC4;
+}
+.x_c_title {
+    color: #FF4447;
+}
+</style>

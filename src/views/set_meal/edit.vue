@@ -27,6 +27,7 @@
                             <el-select v-model="formData.type" style="width: 100px" placeholder="请选择">
                                 <el-option label="话费" :value="1"></el-option>
                                 <el-option label="电费" :value="2"></el-option>
+                                <el-option label="话费快充" :value="3"></el-option>
                             </el-select>
                         </el-form-item>
                     </div>
@@ -265,8 +266,8 @@ const setFormData = async (data: Record<any, any>) => {
             formData[key] = data[key]
         }
     }
-    
-    
+
+
 }
 
 const getDetail = async (row: Record<string, any>) => {
@@ -281,8 +282,8 @@ const getDetail = async (row: Record<string, any>) => {
 const handleSubmit = async () => {
     await formRef.value?.validate()
     const data = { ...formData,  }
-    mode.value == 'edit' 
-        ? await apiSetMealEdit(data) 
+    mode.value == 'edit'
+        ? await apiSetMealEdit(data)
         : await apiSetMealAdd(data)
     popupRef.value?.close()
     emit('success')

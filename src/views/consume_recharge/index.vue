@@ -99,6 +99,11 @@
                     <el-table-column label="充值前余额" prop="up_price" show-overflow-tooltip min-width="95" />
                     <el-table-column label="充值后余额" prop="down_price" show-overflow-tooltip min-width="95" />
                     <el-table-column label="到账金额" prop="balances_price" show-overflow-tooltip />
+                    <el-table-column label="支付金额" prop="pay_price" show-overflow-tooltip min-width="100">
+                        <template #default="{ row }">
+                            <span style="color: #EB8E26">{{ row.pay_price }}Y币</span>
+                        </template>
+                    </el-table-column>
                     <el-table-column label="类型" prop="type" show-overflow-tooltip min-width="82">
                         <template #default="{ row }">
                             <span v-if="row.type == 1" style="color: #8A2BE2;">
@@ -214,7 +219,7 @@ const queryParams = reactive({
 
 // 查询出的数据
 const querySum = reactive({
-    sum: '0.00',
+    sum: '0.00'
 })
 
 // 选中数据
@@ -320,7 +325,7 @@ const handleShow = async (data: any) => {
     data.sa = !data.sa
 }
 
-const getSum = async() => {
+const getSum = async () => {
     const tmp = await apiSum(queryParams)
     querySum.sum = tmp.sum
 }

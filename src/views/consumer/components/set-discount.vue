@@ -10,7 +10,7 @@
         <div class="pr-8">
             <el-form ref="formRef" :model="props.list" label-width="120px" >
                 <template v-for="(item, index) in props.list" :key="index">
-                    <el-form-item :label="`${item?.name || ''}${item?.type === 1 ? '(话费)' : '(电费)'}`">
+                    <el-form-item :label="`${item?.name || ''}${item?.type === 1 ? '(话费)' : (item?.type === 2 ? '(电费)' : '(话费快充)')}`">
                         <el-input
                             :model-value="item?.discount"
                             placeholder="请输入折扣"

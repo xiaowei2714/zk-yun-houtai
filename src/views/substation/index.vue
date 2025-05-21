@@ -7,10 +7,12 @@
                 inline
             >
                 <el-form-item label="会员" prop="user_id">
-                    <el-input class="w-[280px]" v-model="queryParams.user_id" clearable placeholder="请输入昵称或手机号" />
+                    <el-input v-model="queryParams.user_id" clearable
+                              placeholder="请输入昵称" />
                 </el-form-item>
                 <el-form-item label="状态" prop="status">
                     <el-select style="width: 100px" v-model="queryParams.status" placeholder="请选择">
+                        <el-option label="全部" :value="0" />
                         <el-option label="启用" :value="1" />
                         <el-option label="停用" :value="2" />
                     </el-select>
@@ -39,18 +41,34 @@
                 <el-table :data="pager.lists" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="55" />
                     <el-table-column label="ID" prop="id" show-overflow-tooltip />
-                    <el-table-column label="会员" prop="user_id" show-overflow-tooltip />
-                    <el-table-column label="上级" prop="parent_user_id" show-overflow-tooltip />
-                    <el-table-column label="下级" prop="parent_user_id" show-overflow-tooltip />
-                    <el-table-column label="余额" prop="parent_user_id" show-overflow-tooltip />
-                    <el-table-column label="今日完成" prop="parent_user_id" show-overflow-tooltip />
-                    <el-table-column label="总完成" prop="parent_user_id" show-overflow-tooltip />
-                    <el-table-column label="TG" prop="parent_user_id" show-overflow-tooltip />
-                    <el-table-column label="注册时间" prop="create_time" show-overflow-tooltip />
-                    <el-table-column label="状态" prop="status" show-overflow-tooltip />
+                    <el-table-column label="会员" prop="user_show" show-overflow-tooltip min-width="100">
+                        <template #default="{ row }">
+                            <span>昵称：{{ row.user_show }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="上级" prop="p_user_show" show-overflow-tooltip min-width="100">
+                        <template #default="{ row }">
+                            <span v-if="row.p_user_show !== '' && row.p_user_show !== null">昵称：{{ row.p_user_show }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="下级" prop="n_count" show-overflow-tooltip />
+                    <el-table-column label="余额" prop="user_money" show-overflow-tooltip />
+                    <el-table-column label="今日完成" prop="today_award_price" show-overflow-tooltip />
+                    <el-table-column label="总完成" prop="user_award_price" show-overflow-tooltip />
+                    <el-table-column label="TG" prop="parent_user_id" show-overflow-tooltip>
+                        <template #default="{ row }">
+                            <span>-</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="注册时间" prop="ctime" show-overflow-tooltip min-width="110"/>
+                    <el-table-column label="状态" prop="status" show-overflow-tooltip>
+                        <template #default="{ row }">
+                            <span>{{ row.status == 1 ? '启用' : '禁用' }}</span>
+                        </template>
+                    </el-table-column>
                     <el-table-column label="操作" width="120" fixed="right">
                         <template #default="{ row }">
-                             <el-button
+                            <el-button
                                 v-perms="['substation/edit']"
                                 type="primary"
                                 link
@@ -85,6 +103,7 @@ import { apiSubstationLists, apiSubstationDelete } from '@/api/substation'
 import { timeFormat } from '@/utils/util'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
+import { searchUser } from '@/api/user'
 
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 // 是否显示编辑框

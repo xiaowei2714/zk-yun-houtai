@@ -138,7 +138,7 @@
                             <span v-else></span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="时间" prop="start_time" width="210">
+                    <el-table-column label="时间" prop="start_time" min-width="210">
                         <template #default="{ row }">
                             <span v-if="row.ctime != ''" style="color: red;">
                                 耗时：{{ row.ctime }}<br />

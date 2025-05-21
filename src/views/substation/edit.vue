@@ -10,13 +10,46 @@
         >
             <el-form ref="formRef" :model="formData" label-width="90px" :rules="formRules">
                 <el-form-item label="会员" prop="user_id">
-                    <el-input v-model="formData.user_id" clearable placeholder="请输入会员" />
+                    <el-select
+                        v-model="formData.user_id"
+                        filterable
+                        remote
+                        :remote-method="remoteMethod"
+                        :loading="loading"
+                        placeholder="请选择"
+                        style="width: 400px"
+                    >
+                        <el-option
+                            v-for="item in options"
+                            :key="item.id"
+                            :label="item.nickname"
+                            :value="item.id">
+                        </el-option>
+                    </el-select>
                 </el-form-item>
                 <el-form-item label="上级" prop="parent_user_id">
-                    <el-input v-model="formData.parent_user_id" clearable placeholder="请输入上级" />
+                    <el-select
+                        v-model="formData.parent_user_id"
+                        filterable
+                        remote
+                        :remote-method="remoteMethod"
+                        :loading="loading"
+                        placeholder="请选择上级"
+                        style="width: 400px"
+                    >
+                        <el-option
+                            v-for="item in options"
+                            :key="item.id"
+                            :label="item.nickname"
+                            :value="item.id">
+                        </el-option>
+                    </el-select>
                 </el-form-item>
                 <el-form-item label="状态" prop="status">
-                    <el-input v-model="formData.status" clearable placeholder="请输入状态" />
+                    <el-select v-model="formData.status" placeholder="请选择" style="width: 400px">
+                        <el-option label="启用" :value="1" />
+                        <el-option label="停用" :value="2" />
+                    </el-select>
                 </el-form-item>
             </el-form>
         </popup>
@@ -27,19 +60,24 @@
 import type { FormInstance } from 'element-plus'
 import Popup from '@/components/popup/index.vue'
 import { apiSubstationAdd, apiSubstationEdit, apiSubstationDetail } from '@/api/substation'
+import { searchUser } from '@/api/user'
 import { timeFormat } from '@/utils/util'
 import type { PropType } from 'vue'
+
 defineProps({
     dictData: {
         type: Object as PropType<Record<string, any[]>>,
         default: () => ({})
+
     }
 })
+
 const emit = defineEmits(['success', 'close'])
 const formRef = shallowRef<FormInstance>()
 const popupRef = shallowRef<InstanceType<typeof Popup>>()
 const mode = ref('add')
-
+const loading = ref(false)
+const options = ref([])
 
 // 弹窗标题
 const popupTitle = computed(() => {
@@ -51,7 +89,7 @@ const formData = reactive({
     id: '',
     user_id: '',
     parent_user_id: '',
-    status: '',
+    status: ''
 })
 
 
@@ -73,8 +111,18 @@ const setFormData = async (data: Record<any, any>) => {
             formData[key] = data[key]
         }
     }
-    
-    
+
+    options.value = [
+        {
+            id: data.user_id,
+            nickname: data.user_show
+        },
+        {
+            id: data.parent_user_id,
+            nickname: data.p_user_show
+        },
+    ]
+
 }
 
 const getDetail = async (row: Record<string, any>) => {
@@ -88,9 +136,9 @@ const getDetail = async (row: Record<string, any>) => {
 // 提交按钮
 const handleSubmit = async () => {
     await formRef.value?.validate()
-    const data = { ...formData,  }
-    mode.value == 'edit' 
-        ? await apiSubstationEdit(data) 
+    const data = { ...formData }
+    mode.value == 'edit'
+        ? await apiSubstationEdit(data)
         : await apiSubstationAdd(data)
     popupRef.value?.close()
     emit('success')
@@ -107,7 +155,21 @@ const handleClose = () => {
     emit('close')
 }
 
+const remoteMethod = async (query) => {
+    if (query !== '') {
+        loading.value = true
 
+        const data = await searchUser({
+            search: query
+        })
+
+        loading.value = false
+        options.value = data
+
+    } else {
+        options.value = []
+    }
+}
 
 defineExpose({
     open,

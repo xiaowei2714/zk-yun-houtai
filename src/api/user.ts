@@ -20,3 +20,8 @@ export function getUserInfo() {
 export function setUserInfo(params: any) {
     return request.post({ url: '/auth.admin/editSelf', params })
 }
+
+// 搜索用户信息
+export function searchUser(params: any) {
+    return request.get({ url: '/user.user/searchUser', params })
+}

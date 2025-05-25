@@ -5,6 +5,15 @@ export function apiRechargeLists(params: any) {
     return request.get({ url: '/recharge/lists', params })
 }
 
+// 汇总数据
+export function apiSum() {
+    return request.get({ url: '/recharge/sum' })
+}
+
+export function apiClearOrder() {
+    return request.get({ url: '/recharge/clear' })
+}
+
 // 添加充值
 export function apiRechargeAdd(params: any) {
     return request.post({ url: '/recharge/add', params })

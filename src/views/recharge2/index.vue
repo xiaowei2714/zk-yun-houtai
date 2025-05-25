@@ -141,14 +141,14 @@
             </el-form>
             <div class="mt-4">
                 <el-table :data="pager.lists" @selection-change="handleSelectionChange">
-                    <el-table-column type="selection" width="55" />
-                    <el-table-column label="用户" prop="user_show" show-overflow-tooltip />
+<!--                    <el-table-column type="selection" width="55" />-->
+                    <el-table-column label="用户ID" prop="user_id" show-overflow-tooltip />
+                    <el-table-column label="用户昵称" prop="nickname" show-overflow-tooltip />
                     <el-table-column label="金额" prop="money" show-overflow-tooltip />
                     <el-table-column label="订单描述" prop="desc" show-overflow-tooltip />
                     <el-table-column label="订单号" prop="order_no" show-overflow-tooltip min-width="140" />
                     <el-table-column label="创建时间" prop="create_time" show-overflow-tooltip min-width="120" />
                     <el-table-column label="付款时间" prop="pay_time" show-overflow-tooltip min-width="120" />
-                    <el-table-column label="回调稀哈" prop="hash" show-overflow-tooltip />
                     <el-table-column label="订单状态" prop="status" show-overflow-tooltip>
                         <template #default="{ row }">
                             <span v-if="row.status == 1">
@@ -169,20 +169,11 @@
                     <el-table-column label="操作" width="120" fixed="right">
                         <template #default="{ row }">
                             <el-button
-                                v-perms="['recharge/edit']"
                                 type="primary"
-                                link
-                                @click="handleEdit(row)"
+                                style="border-color: #5B87F0; background-color: #5B87F0"
+                                @click="getLists"
                             >
-                                编辑
-                            </el-button>
-                            <el-button
-                                v-perms="['recharge/delete']"
-                                type="danger"
-                                link
-                                @click="handleDelete(row.id)"
-                            >
-                                删除
+                                更新
                             </el-button>
                         </template>
                     </el-table-column>

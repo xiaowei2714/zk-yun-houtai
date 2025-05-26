@@ -107,7 +107,7 @@
                                     v-model.trim="formData.card_discount"
                                     placeholder="请输入礼品卡折扣"
                                 ></el-input>
-                                <div class="form-tips">查询一个电费所需扣除的Y币</div>
+                                <div class="form-tips">礼品卡折扣</div>
                             </div>
                         </el-form-item>
                         <el-form-item label="分站价格" prop="substation_price">
@@ -118,6 +118,28 @@
                                     placeholder="请输入分站价格"
                                 ></el-input>
                                 <div class="form-tips">开通分站所需的Y币</div>
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="充值网络" prop="recharge_network">
+                            <div class="w-80">
+                                <el-input
+                                    v-model.trim="formData.recharge_network"
+                                    placeholder="请输入充值网络"
+                                    maxlength="30"
+                                    show-word-limit
+                                ></el-input>
+                                <div class="form-tips">充值所需要的网络</div>
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="充值地址" prop="recharge_address">
+                            <div class="w-80">
+                                <el-input
+                                    v-model.trim="formData.recharge_address"
+                                    placeholder="请输入充值地址"
+                                    maxlength="60"
+                                    show-word-limit
+                                ></el-input>
+                                <div class="form-tips">充值所需要的地址</div>
                             </div>
                         </el-form-item>
                     </el-tab-pane>
@@ -475,6 +497,8 @@ const formData = reactive({
     share_rules: '',
     open_substation_tips: '',
     substation_price: '',
+    recharge_network: '',
+    recharge_address: '',
     invite_logo: '',
     kf_qrcode: '',
     kf_mobile: '',

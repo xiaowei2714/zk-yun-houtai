@@ -1,6 +1,8 @@
 <template>
     <div class="workbench">
         <div class="lg:flex">
+
+            <!-- 平台信息-->
             <el-card class="!border-none mb-4 lg:mr-4 lg:w-[350px]" shadow="never">
                 <template #header>
                     <span class="card-title">版本信息</span>
@@ -31,6 +33,8 @@
                     </div>
                 </div>
             </el-card>
+
+            <!-- 汇总数据-->
             <el-card class="!border-none mb-4 flex-1" shadow="never">
                 <template #header>
                     <div>
@@ -64,15 +68,17 @@
                         </div>
                     </div>
                     <div class="w-1/2 md:w-1/4">
-                        <div class="leading-10">新增访问量</div>
-                        <div class="text-6xl">{{ workbenchData.today.today_visitor }}</div>
+                        <div class="leading-10">充值额</div>
+                        <div class="text-6xl">{{ workbenchData.today.today_recharge }}</div>
                         <div class="text-tx-secondary text-xs">
-                            总：{{ workbenchData.today.total_visitor }}
+                            总：{{ workbenchData.today.total_recharge }}
                         </div>
                     </div>
                 </div>
             </el-card>
         </div>
+
+        <!-- 功能快捷-->
         <div class="function mb-4">
             <el-card class="flex-1 !border-none" shadow="never">
                 <template #header>
@@ -92,10 +98,13 @@
                 </div>
             </el-card>
         </div>
+
         <div class="lg:flex gap-4">
+
+            <!-- 充值趋势图-->
             <el-card class="!border-none mb-4 lg:mb-0 w-full lg:w-2/3" shadow="never">
                 <template #header>
-                    <span>访问量趋势图</span>
+                    <span>充值趋势图</span>
                 </template>
                 <div>
                     <v-charts
@@ -106,6 +115,8 @@
                     />
                 </div>
             </el-card>
+
+            <!-- 销售额趋势图-->
             <el-card class="!border-none w-full lg:w-1/3" shadow="never">
                 <template #header>
                     <span>销售额趋势图</span>
@@ -168,14 +179,14 @@ const workbenchData: any = reactive({
             type: 'value'
         },
         legend: {
-            data: ['访问量']
+            data: ['充值量']
         },
         tooltip: {
             trigger: 'axis'
         },
         series: [
             {
-                name: '访问量',
+                name: '充值金额',
                 data: [],
                 type: 'line',
                 smooth: true,
@@ -215,7 +226,7 @@ const workbenchData: any = reactive({
         },
         yAxis: {
             type: 'value',
-            name: '单位（万）'
+            name: '单位（Y币）'
         },
         tooltip: {
             trigger: 'axis'

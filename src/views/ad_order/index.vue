@@ -10,10 +10,29 @@
                     <el-input class="w-[280px]" v-model="queryParams.order_no" clearable placeholder="请输入订单号" />
                 </el-form-item>
                 <el-form-item label="订单类型" prop="order_type">
-                    <el-input class="w-[280px]" v-model="queryParams.order_type" clearable placeholder="请输入订单类型" />
+                    <el-select style="width: 150px;margin-left: 10px" v-model="queryParams.order_type"
+                               placeholder="请选择订单类型">
+                        <el-option label="全部" value="" />
+                        <el-option label="买入" :value="1" />
+                        <el-option label="卖出" :value="2" />
+                    </el-select>
                 </el-form-item>
                 <el-form-item label="状态" prop="status">
-                    <el-input class="w-[280px]" v-model="queryParams.status" clearable placeholder="请输入状态" />
+                    <el-select style="width: 150px;margin-left: 10px" v-model="queryParams.status"
+                               placeholder="请选择状态">
+                        <el-option label="全部" value="" />
+                        <el-option label="待付款" :value="1" />
+                        <el-option label="已付款" :value="2" />
+                        <el-option label="已完成" :value="4" />
+                        <el-option label="已取消" :value="5" />
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="状态" prop="appeal">
+                    <el-select style="width: 150px;margin-left: 10px" v-model="queryParams.appeal"
+                               placeholder="请选择状态">
+                        <el-option label="全部" value="" />
+                        <el-option label="已申诉" :value="1" />
+                    </el-select>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="resetPage">查询</el-button>
@@ -41,7 +60,7 @@
                     <el-table-column label="买家" prop="username" show-overflow-tooltip />
                     <el-table-column label="卖家" prop="to_username" show-overflow-tooltip />
 <!--                    <el-table-column label="广告" prop="ad_id" show-overflow-tooltip />-->
-                    <el-table-column label="订单号" prop="order_no" show-overflow-tooltip />
+                    <el-table-column label="订单号" prop="order_no" show-overflow-tooltip min-width="170"/>
                     <el-table-column label="订单类型" prop="order_type" show-overflow-tooltip >
                         <template #default="{ row }">
                             <span v-if="row.order_type == 1">买入</span>
@@ -80,7 +99,13 @@
                             <span v-if="row.status == 5">已取消</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="创建时间" prop="create_time" show-overflow-tooltip />
+                    <el-table-column label="申诉" prop="appeal" show-overflow-tooltip >
+                        <template #default="{ row }">
+                            <span v-if="row.status == 1">已申诉</span>
+                            <span v-else>未申诉</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="创建时间" prop="create_time" show-overflow-tooltip min-width="130"/>
 <!--                    <el-table-column label="取消方式" prop="cancel_type" show-overflow-tooltip />-->
                     <el-table-column label="操作" width="120" fixed="right">
                         <template #default="{ row }">

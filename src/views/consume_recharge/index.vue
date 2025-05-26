@@ -92,7 +92,7 @@
             <div class="mt-4">
                 <el-table :data="pager.lists" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="55" />
-                    <el-table-column label="单号" prop="sn" show-overflow-tooltip width="180" />
+                    <el-table-column label="单号" prop="sn" show-overflow-tooltip min-width="180" />
                     <el-table-column label="客户" prop="user_show" show-overflow-tooltip min-width="100" />
                     <el-table-column label="充值账户" prop="account_show" show-overflow-tooltip min-width="180" />
                     <el-table-column label="金额" prop="price" show-overflow-tooltip />

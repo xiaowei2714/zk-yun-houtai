@@ -155,15 +155,8 @@
                                 待付款
                             </span>
                             <span v-else-if="row.status == 2" style="color: #F8AC59">
-                                已付款
+                                已到账
                             </span>
-                            <span v-else-if="row.status == 3" style="color: #1AB394;">
-                                已完成
-                            </span>
-                            <span v-else-if="row.status == 4" style="color: #E24555">
-                                已失败
-                            </span>
-                            <span v-else></span>
                         </template>
                     </el-table-column>
                     <el-table-column label="操作" width="120" fixed="right">

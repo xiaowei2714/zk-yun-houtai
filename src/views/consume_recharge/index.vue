@@ -95,6 +95,8 @@
                     <el-table-column label="单号" prop="sn" show-overflow-tooltip min-width="180" />
                     <el-table-column label="客户" prop="user_show" show-overflow-tooltip min-width="100" />
                     <el-table-column label="充值账户" prop="account_show" show-overflow-tooltip min-width="180" />
+                    <el-table-column label="运营商" prop="account_type_show" show-overflow-tooltip min-width="100" />
+                    <el-table-column label="名称" prop="name_show" show-overflow-tooltip />
                     <el-table-column label="金额" prop="price" show-overflow-tooltip />
                     <el-table-column label="充值前余额" prop="up_price" show-overflow-tooltip min-width="95" />
                     <el-table-column label="充值后余额" prop="down_price" show-overflow-tooltip min-width="95" />

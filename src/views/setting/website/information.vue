@@ -149,31 +149,31 @@
                         <el-form-item label="一级比例" prop="phone_first_ratio">
                             <div class="w-80">
                                 <el-input
-                                    v-model.number="formData.phone_first_ratio"
                                     type="number"
-                                    min="0"
-                                    max="100"
+                                    v-model.trim="formData.phone_first_ratio"
                                     placeholder="请输入第一级比例分成（百分制）"
+                                    maxlength="30"
+                                    show-word-limit
                                 ></el-input>
                             </div>
                         </el-form-item>
                         <el-form-item label="二级比例" prop="phone_second_ratio">
                             <div class="w-80">
                                 <el-input
-                                    v-model.number="formData.phone_second_ratio"
-                                    min="0"
-                                    max="100"
+                                    type="number"
+                                    v-model.trim="formData.phone_second_ratio"
                                     placeholder="请输入第二级比例分成（百分制）"
+                                    maxlength="30"
                                 ></el-input>
                             </div>
                         </el-form-item>
                         <el-form-item label="三级比例" prop="phone_three_ratio">
                             <div class="w-80">
                                 <el-input
-                                    v-model.number="formData.phone_three_ratio"
-                                    min="0"
-                                    max="100"
+                                    type="number"
+                                    v-model.trim="formData.phone_three_ratio"
                                     placeholder="请输入第三级比例分成（百分制）"
+                                    maxlength="30"
                                 ></el-input>
                             </div>
                         </el-form-item>
@@ -182,31 +182,30 @@
                         <el-form-item label="一级比例" prop="electricity_first_ratio">
                             <div class="w-80">
                                 <el-input
-                                    v-model.number="formData.electricity_first_ratio"
                                     type="number"
-                                    min="0"
-                                    max="100"
+                                    v-model.trim="formData.electricity_first_ratio"
                                     placeholder="请输入第一级比例分成（百分制）"
+                                    maxlength="30"
                                 ></el-input>
                             </div>
                         </el-form-item>
                         <el-form-item label="二级比例" prop="electricity_second_ratio">
                             <div class="w-80">
                                 <el-input
-                                    v-model.number="formData.electricity_second_ratio"
-                                    min="0"
-                                    max="100"
+                                    type="number"
+                                    v-model.trim="formData.electricity_second_ratio"
                                     placeholder="请输入第二级比例分成（百分制）"
+                                    maxlength="30"
                                 ></el-input>
                             </div>
                         </el-form-item>
                         <el-form-item label="三级比例" prop="electricity_three_ratio">
                             <div class="w-80">
                                 <el-input
-                                    v-model.number="formData.electricity_three_ratio"
-                                    min="0"
-                                    max="100"
+                                    type="number"
+                                    v-model.trim="formData.electricity_three_ratio"
                                     placeholder="请输入第三级比例分成（百分制）"
+                                    maxlength="30"
                                 ></el-input>
                             </div>
                         </el-form-item>
@@ -215,31 +214,30 @@
                         <el-form-item label="一级比例" prop="quickly_first_ratio">
                             <div class="w-80">
                                 <el-input
-                                    v-model.number="formData.quickly_first_ratio"
                                     type="number"
-                                    min="0"
-                                    max="100"
+                                    v-model.trim="formData.quickly_first_ratio"
                                     placeholder="请输入第一级比例分成（百分制）"
+                                    maxlength="30"
                                 ></el-input>
                             </div>
                         </el-form-item>
                         <el-form-item label="二级比例" prop="quickly_second_ratio">
                             <div class="w-80">
                                 <el-input
-                                    v-model.number="formData.quickly_second_ratio"
-                                    min="0"
-                                    max="100"
+                                    type="number"
+                                    v-model.trim="formData.quickly_second_ratio"
                                     placeholder="请输入第二级比例分成（百分制）"
+                                    maxlength="30"
                                 ></el-input>
                             </div>
                         </el-form-item>
                         <el-form-item label="三级比例" prop="quickly_three_ratio">
                             <div class="w-80">
                                 <el-input
-                                    v-model.number="formData.quickly_three_ratio"
-                                    min="0"
-                                    max="100"
+                                    type="number"
+                                    v-model.trim="formData.quickly_three_ratio"
                                     placeholder="请输入第三级比例分成（百分制）"
+                                    maxlength="30"
                                 ></el-input>
                             </div>
                         </el-form-item>
@@ -248,31 +246,30 @@
                         <el-form-item label="一级比例" prop="card_first_ratio">
                             <div class="w-80">
                                 <el-input
-                                    v-model.number="formData.card_first_ratio"
                                     type="number"
-                                    min="0"
-                                    max="100"
+                                    v-model.trim="formData.card_first_ratio"
                                     placeholder="请输入第一级比例分成（百分制）"
+                                    maxlength="30"
                                 ></el-input>
                             </div>
                         </el-form-item>
                         <el-form-item label="二级比例" prop="card_second_ratio">
                             <div class="w-80">
                                 <el-input
-                                    v-model.number="formData.card_second_ratio"
-                                    min="0"
-                                    max="100"
+                                    type="number"
+                                    v-model.trim="formData.card_second_ratio"
                                     placeholder="请输入第二级比例分成（百分制）"
+                                    maxlength="30"
                                 ></el-input>
                             </div>
                         </el-form-item>
                         <el-form-item label="三级比例" prop="card_three_ratio">
                             <div class="w-80">
                                 <el-input
-                                    v-model.number="formData.card_three_ratio"
-                                    min="0"
-                                    max="100"
+                                    type="number"
+                                    v-model.trim="formData.card_three_ratio"
                                     placeholder="请输入第三级比例分成（百分制）"
+                                    maxlength="30"
                                 ></el-input>
                             </div>
                         </el-form-item>

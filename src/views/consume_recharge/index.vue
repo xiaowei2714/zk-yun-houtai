@@ -10,7 +10,9 @@
                     <el-input class="w-[280px]" v-model="queryParams.sn" clearable placeholder="请输入单号" />
                 </el-form-item>
                 <el-form-item label="充值账户" prop="account">
-                    <el-input class="w-[280px]" v-model="queryParams.account" clearable placeholder="请输入充值账户" />
+                    <el-input-tag class="w-[280px]" v-model="queryParams.account" clearable placeholder="请输入充值账户"
+                                  :tag-type="tagType"
+                                  :tag-effect="tagEffect" />
                 </el-form-item>
                 <el-form-item label="运营商" prop="account_type">
                     <el-select style="width: 150px;margin-left: 10px" v-model="queryParams.account_type"
@@ -204,6 +206,7 @@ import {
     apiBatchGenBalance
 } from '@/api/consume_recharge'
 import feedback from '@/utils/feedback'
+import type { TagProps } from 'element-plus'
 
 // 是否显示编辑框
 const showEdit = ref(false)
@@ -211,7 +214,7 @@ const showEdit = ref(false)
 // 查询条件
 const queryParams = reactive({
     sn: '',
-    account: '',
+    account: [],
     account_type: '',
     status: '',
     start_time: '',
@@ -226,6 +229,9 @@ const querySum = reactive({
 
 // 选中数据
 const selectData = ref<any[]>([])
+
+const tagType = ref<TagProps['type']>('primary')
+const tagEffect = ref<TagProps['effect']>('plain')
 
 // 表格选择后回调事件
 const handleSelectionChange = (val: any[]) => {

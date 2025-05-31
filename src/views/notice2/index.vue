@@ -18,6 +18,8 @@
                 <el-tab-pane label="首页公告" :name="1"></el-tab-pane>
                 <el-tab-pane label="话费公告" :name="2"></el-tab-pane>
                 <el-tab-pane label="电费公告" :name="3"></el-tab-pane>
+                <el-tab-pane label="话费快充公告" :name="4"></el-tab-pane>
+                <el-tab-pane label="礼品卡公告" :name="5"></el-tab-pane>
             </el-tabs>
         </el-card>
         <el-card class="!border-none" v-loading="pager.loading" shadow="never">

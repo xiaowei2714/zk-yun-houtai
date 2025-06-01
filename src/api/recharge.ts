@@ -14,6 +14,14 @@ export function apiClearOrder() {
     return request.get({ url: '/recharge/clear' })
 }
 
+export function apiOrderSuccess(params: any) {
+    return request.post({ url: '/recharge/setSuccess', params })
+}
+
+export function apiOrderBatchSuccess(params: any) {
+    return request.post({ url: '/recharge/setBatchSuccess', params })
+}
+
 // 添加充值
 export function apiRechargeAdd(params: any) {
     return request.post({ url: '/recharge/add', params })

@@ -15,6 +15,26 @@ export function apiAdOrderEdit(params: any) {
     return request.post({ url: '/ad_order/edit', params })
 }
 
+// 取消数字交易
+export function apiAdOrderCancel(params: any) {
+    return request.post({ url: '/ad_order/cancelOrder', params })
+}
+
+// 取消数字交易
+export function apiAdOrderBatchCancel(params: any) {
+    return request.post({ url: '/ad_order/batchCancelOrder', params })
+}
+
+// 成功数字交易
+export function apiAdOrderComplete(params: any) {
+    return request.post({ url: '/ad_order/completeOrder', params })
+}
+
+// 成功数字交易
+export function apiAdOrderBatchComplete(params: any) {
+    return request.post({ url: '/ad_order/batchCompleteOrder', params })
+}
+
 // 删除数字交易
 export function apiAdOrderDelete(params: any) {
     return request.post({ url: '/ad_order/delete', params })

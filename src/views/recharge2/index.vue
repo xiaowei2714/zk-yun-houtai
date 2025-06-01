@@ -137,15 +137,21 @@
                         </template>
                         清空未支付订单
                     </el-button>
+                    <el-button
+                        type="success"
+                        :disabled="!selectData.length"
+                        @click="handleBatchSuccess(selectData)"
+                    >
+                        批量成功
+                    </el-button>
                 </el-form-item>
             </el-form>
             <div class="mt-4">
                 <el-table :data="pager.lists" @selection-change="handleSelectionChange">
-<!--                    <el-table-column type="selection" width="55" />-->
+                    <el-table-column type="selection" width="55" />
                     <el-table-column label="用户ID" prop="user_id" show-overflow-tooltip />
                     <el-table-column label="用户昵称" prop="nickname" show-overflow-tooltip />
                     <el-table-column label="金额" prop="money" show-overflow-tooltip />
-                    <el-table-column label="订单描述" prop="desc" show-overflow-tooltip />
                     <el-table-column label="订单号" prop="order_no" show-overflow-tooltip min-width="140" />
                     <el-table-column label="创建时间" prop="create_time" show-overflow-tooltip min-width="120" />
                     <el-table-column label="付款时间" prop="pay_time" show-overflow-tooltip min-width="120" />
@@ -159,14 +165,16 @@
                             </span>
                         </template>
                     </el-table-column>
+                    <el-table-column label="操作管理员" prop="set_success_admin" show-overflow-tooltip min-width="" />
                     <el-table-column label="操作" width="120" fixed="right">
                         <template #default="{ row }">
                             <el-button
+                                v-if="row.status == 1"
                                 type="primary"
                                 style="border-color: #5B87F0; background-color: #5B87F0"
-                                @click="getLists"
+                                @click="handleSuccess(row.id)"
                             >
-                                更新
+                                更新到账
                             </el-button>
                         </template>
                     </el-table-column>
@@ -183,11 +191,19 @@
 <script lang="ts" setup name="rechargeLists">
 import { usePaging } from '@/hooks/usePaging'
 import { useDictData } from '@/hooks/useDictOptions'
-import { apiRechargeLists, apiSum, apiRechargeDelete, apiClearOrder } from '@/api/recharge'
+import {
+    apiRechargeLists,
+    apiSum,
+    apiRechargeDelete,
+    apiClearOrder,
+    apiOrderSuccess,
+    apiOrderBatchSuccess
+} from '@/api/recharge'
 import { timeFormat } from '@/utils/util'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
 import { apiSetRecharging } from '@/api/consume_recharge'
+import { apiAdOrderBatchComplete } from '@/api/ad_order'
 
 const editRef = shallowRef<InstanceType<typeof EditPopup>>()
 // 是否显示编辑框
@@ -250,6 +266,20 @@ const handleDelete = async (id: number | any[]) => {
 const handleClear = async (id: number | any[]) => {
     await feedback.confirm('确定要清理20分钟前未支付订单？')
     await apiClearOrder()
+    getLists()
+}
+
+// 更新成功
+const handleSuccess = async (id: number | any[]) => {
+    await feedback.confirm('确定要更新成功')
+    await apiOrderSuccess({ id })
+    getLists()
+}
+
+// 批量成功
+const handleBatchSuccess = async (id: number | any[]) => {
+    await feedback.confirm('确定要更新成功？')
+    await apiOrderBatchSuccess({ id })
     getLists()
 }
 

@@ -27,7 +27,7 @@
                         <el-option label="已取消" :value="5" />
                     </el-select>
                 </el-form-item>
-                <el-form-item label="状态" prop="appeal">
+                <el-form-item label="申诉状态" prop="appeal">
                     <el-select style="width: 150px;margin-left: 10px" v-model="queryParams.appeal"
                                placeholder="请选择状态">
                         <el-option label="全部" value="" />
@@ -41,48 +41,63 @@
             </el-form>
         </el-card>
         <el-card class="!border-none" v-loading="pager.loading" shadow="never">
-<!--            <el-button v-perms="['ad_order/add']" type="primary" @click="handleAdd">-->
-<!--                <template #icon>-->
-<!--                    <icon name="el-icon-Plus" />-->
-<!--                </template>-->
-<!--                新增-->
-<!--            </el-button>-->
+            <!--            <el-button v-perms="['ad_order/add']" type="primary" @click="handleAdd">-->
+            <!--                <template #icon>-->
+            <!--                    <icon name="el-icon-Plus" />-->
+            <!--                </template>-->
+            <!--                新增-->
+            <!--            </el-button>-->
+            <el-button
+                type="success"
+                :disabled="!selectData.length"
+                @click="handleBatchComplete(selectData)"
+            >
+                批量成功
+            </el-button>
+            <el-button
+                type="warning"
+                :disabled="!selectData.length"
+                @click="handleBatchCancel(selectData)"
+            >
+                批量取消
+            </el-button>
             <el-button
                 v-perms="['ad_order/delete']"
+                type="danger"
                 :disabled="!selectData.length"
                 @click="handleDelete(selectData)"
             >
-                删除
+                批量删除
             </el-button>
             <div class="mt-4">
                 <el-table :data="pager.lists" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="55" />
                     <el-table-column label="买家" prop="username" show-overflow-tooltip />
                     <el-table-column label="卖家" prop="to_username" show-overflow-tooltip />
-<!--                    <el-table-column label="广告" prop="ad_id" show-overflow-tooltip />-->
-                    <el-table-column label="订单号" prop="order_no" show-overflow-tooltip min-width="170"/>
-                    <el-table-column label="订单类型" prop="order_type" show-overflow-tooltip >
+                    <!--                    <el-table-column label="广告" prop="ad_id" show-overflow-tooltip />-->
+                    <el-table-column label="订单号" prop="order_no" show-overflow-tooltip min-width="170" />
+                    <el-table-column label="订单类型" prop="order_type" show-overflow-tooltip>
                         <template #default="{ row }">
                             <span v-if="row.order_type == 1">买入</span>
                             <span v-if="row.order_type == 2">卖出</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="数量" prop="num" show-overflow-tooltip >
+                    <el-table-column label="数量" prop="num" show-overflow-tooltip>
                         <template #default="{ row }">
-                            <span>{{row.num}} Y币</span>
+                            <span>{{ row.num }} Y币</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="总额" prop="price" show-overflow-tooltip >
+                    <el-table-column label="总额" prop="price" show-overflow-tooltip>
                         <template #default="{ row }">
-                            <span>￥{{row.price}}</span>
+                            <span>￥{{ row.price }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="单价" prop="dan_price" show-overflow-tooltip >
+                    <el-table-column label="单价" prop="dan_price" show-overflow-tooltip>
                         <template #default="{ row }">
-                            <span>￥{{row.dan_price}}</span>
+                            <span>￥{{ row.dan_price }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="支付方式" prop="pay_type" show-overflow-tooltip >
+                    <el-table-column label="支付方式" prop="pay_type" show-overflow-tooltip>
                         <template #default="{ row }">
                             <span v-if="row.pay_type == 'wx'">微信</span>
                             <span v-if="row.pay_type == 'zfb'">支付宝</span>
@@ -90,7 +105,7 @@
                             <span v-if="row.pay_type == 'usdt'">USDT</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="状态" prop="status" show-overflow-tooltip >
+                    <el-table-column label="状态" prop="status" show-overflow-tooltip>
                         <template #default="{ row }">
                             <span v-if="row.status == 1">待付款</span>
                             <span v-if="row.status == 2">已付款</span>
@@ -99,28 +114,34 @@
                             <span v-if="row.status == 5">已取消</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="申诉" prop="appeal" show-overflow-tooltip >
+                    <el-table-column label="申诉" prop="appeal" show-overflow-tooltip>
                         <template #default="{ row }">
-                            <span v-if="row.status == 1">已申诉</span>
+                            <span v-if="row.appeal == 1">已申诉</span>
                             <span v-else>未申诉</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="创建时间" prop="create_time" show-overflow-tooltip min-width="130"/>
-<!--                    <el-table-column label="取消方式" prop="cancel_type" show-overflow-tooltip />-->
-                    <el-table-column label="操作" width="120" fixed="right">
+                    <el-table-column label="操作管理员" prop="admin_name" show-overflow-tooltip min-width="" />
+                    <el-table-column label="创建时间" prop="create_time" show-overflow-tooltip min-width="160" />
+                    <!--                    <el-table-column label="取消方式" prop="cancel_type" show-overflow-tooltip />-->
+                    <el-table-column label="操作" min-width="190" fixed="right">
                         <template #default="{ row }">
-<!--                             <el-button-->
-<!--                                v-perms="['ad_order/edit']"-->
-<!--                                type="primary"-->
-<!--                                link-->
-<!--                                @click="handleEdit(row)"-->
-<!--                            >-->
-<!--                                编辑-->
-<!--                            </el-button>-->
+                            <!--                             <el-button-->
+                            <!--                                v-perms="['ad_order/edit']"-->
+                            <!--                                type="primary"-->
+                            <!--                                link-->
+                            <!--                                @click="handleEdit(row)"-->
+                            <!--                            >-->
+                            <!--                                编辑-->
+                            <!--                            </el-button>-->
+                            <el-button type="success" v-if="row.status == 2" @click="handleComplete(row.id)">
+                                成功
+                            </el-button>
+                            <el-button type="warning" v-if="row.status == 2" @click="handleCancel(row.id)">
+                                取消
+                            </el-button>
                             <el-button
                                 v-perms="['ad_order/delete']"
                                 type="danger"
-                                link
                                 @click="handleDelete(row.id)"
                             >
                                 删除
@@ -140,7 +161,14 @@
 <script lang="ts" setup name="adOrderLists">
 import { usePaging } from '@/hooks/usePaging'
 import { useDictData } from '@/hooks/useDictOptions'
-import { apiAdOrderLists, apiAdOrderDelete } from '@/api/ad_order'
+import {
+    apiAdOrderLists,
+    apiAdOrderDelete,
+    apiAdOrderComplete,
+    apiAdOrderBatchComplete,
+    apiAdOrderCancel,
+    apiAdOrderBatchCancel
+} from '@/api/ad_order'
 import { timeFormat } from '@/utils/util'
 import feedback from '@/utils/feedback'
 import EditPopup from './edit.vue'
@@ -193,6 +221,34 @@ const handleEdit = async (data: any) => {
 const handleDelete = async (id: number | any[]) => {
     await feedback.confirm('确定要删除？')
     await apiAdOrderDelete({ id })
+    getLists()
+}
+
+// 成功
+const handleComplete = async (id: number | any[]) => {
+    await feedback.confirm('确定要成功？')
+    await apiAdOrderComplete({ id })
+    getLists()
+}
+
+// 批量成功
+const handleBatchComplete = async (id: number | any[]) => {
+    await feedback.confirm('确定要更新成功？')
+    await apiAdOrderBatchComplete({ id })
+    getLists()
+}
+
+// 取消
+const handleCancel = async (id: number | any[]) => {
+    await feedback.confirm('确定要取消？')
+    await apiAdOrderCancel({ id })
+    getLists()
+}
+
+// 批量取消
+const handleBatchCancel = async (id: number | any[]) => {
+    await feedback.confirm('确定要取消？')
+    await apiAdOrderBatchCancel({ id })
     getLists()
 }
 

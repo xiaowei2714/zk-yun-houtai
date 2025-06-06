@@ -123,7 +123,7 @@
                     <el-table-column label="操作管理员" prop="admin_name" show-overflow-tooltip min-width="" />
                     <el-table-column label="创建时间" prop="create_time" show-overflow-tooltip min-width="160" />
                     <!--                    <el-table-column label="取消方式" prop="cancel_type" show-overflow-tooltip />-->
-                    <el-table-column label="操作" min-width="190" fixed="right">
+                    <el-table-column label="操作" min-width="210" fixed="right">
                         <template #default="{ row }">
                             <!--                             <el-button-->
                             <!--                                v-perms="['ad_order/edit']"-->
@@ -133,10 +133,16 @@
                             <!--                            >-->
                             <!--                                编辑-->
                             <!--                            </el-button>-->
-                            <el-button type="success" v-if="row.status == 2" @click="handleComplete(row.id)">
+                            <el-button
+                                v-if="row.status == 1|| row.status == 2"
+                                @click="handleComplete(row.id)"
+                                type="success">
                                 成功
                             </el-button>
-                            <el-button type="warning" v-if="row.status == 2" @click="handleCancel(row.id)">
+                            <el-button
+                                v-if="row.status == 1|| row.status == 2"
+                                @click="handleCancel(row.id)"
+                                type="warning">
                                 取消
                             </el-button>
                             <el-button

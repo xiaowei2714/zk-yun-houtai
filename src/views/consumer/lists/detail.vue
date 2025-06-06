@@ -65,62 +65,75 @@
                         </el-button>
                     </popover-input>
                 </el-form-item>
-<!--                <el-form-item label="真实姓名：">-->
-<!--                    {{ formData.real_name || '-' }}-->
-<!--                    <popover-input-->
-<!--                        class="ml-[10px]"-->
-<!--                        @confirm="handleEdit($event, 'real_name')"-->
-<!--                        :limit="32"-->
-<!--                        v-perms="['user.user/edit']"-->
-<!--                    >-->
-<!--                        <el-button type="primary" link>-->
-<!--                            <icon name="el-icon-EditPen" />-->
-<!--                        </el-button>-->
-<!--                    </popover-input>-->
-<!--                </el-form-item>-->
-<!--                <el-form-item label="性别：">-->
-<!--                    {{ formData.sex }}-->
-<!--                    <popover-input-->
-<!--                        class="ml-[10px]"-->
-<!--                        type="select"-->
-<!--                        :options="[-->
-<!--                            {-->
-<!--                                label: '未知',-->
-<!--                                value: 0-->
-<!--                            },-->
-<!--                            {-->
-<!--                                label: '男',-->
-<!--                                value: 1-->
-<!--                            },-->
-<!--                            {-->
-<!--                                label: '女',-->
-<!--                                value: 2-->
-<!--                            }-->
-<!--                        ]"-->
-<!--                        @confirm="handleEdit($event, 'sex')"-->
-<!--                        v-perms="['user.user/edit']"-->
-<!--                    >-->
-<!--                        <el-button type="primary" link>-->
-<!--                            <icon name="el-icon-EditPen" />-->
-<!--                        </el-button>-->
-<!--                    </popover-input>-->
-<!--                </el-form-item>-->
-<!--                <el-form-item label="联系电话：">-->
-<!--                    {{ formData.mobile || '-' }}-->
-<!--                    <popover-input-->
-<!--                        class="ml-[10px]"-->
-<!--                        type="number"-->
-<!--                        @confirm="handleEdit($event, 'mobile')"-->
-<!--                        v-perms="['user.user/edit']"-->
-<!--                    >-->
-<!--                        <el-button type="primary" link>-->
-<!--                            <icon name="el-icon-EditPen" />-->
-<!--                        </el-button>-->
-<!--                    </popover-input>-->
-<!--                </el-form-item>-->
-<!--                <el-form-item label="注册来源："> {{ formData.channel }} </el-form-item>-->
-                <el-form-item label="注册时间："> {{ formData.create_time }} </el-form-item>
-                <el-form-item label="最近登录时间："> {{ formData.login_time }} </el-form-item>
+                <!--                <el-form-item label="真实姓名：">-->
+                <!--                    {{ formData.real_name || '-' }}-->
+                <!--                    <popover-input-->
+                <!--                        class="ml-[10px]"-->
+                <!--                        @confirm="handleEdit($event, 'real_name')"-->
+                <!--                        :limit="32"-->
+                <!--                        v-perms="['user.user/edit']"-->
+                <!--                    >-->
+                <!--                        <el-button type="primary" link>-->
+                <!--                            <icon name="el-icon-EditPen" />-->
+                <!--                        </el-button>-->
+                <!--                    </popover-input>-->
+                <!--                </el-form-item>-->
+                <!--                <el-form-item label="性别：">-->
+                <!--                    {{ formData.sex }}-->
+                <!--                    <popover-input-->
+                <!--                        class="ml-[10px]"-->
+                <!--                        type="select"-->
+                <!--                        :options="[-->
+                <!--                            {-->
+                <!--                                label: '未知',-->
+                <!--                                value: 0-->
+                <!--                            },-->
+                <!--                            {-->
+                <!--                                label: '男',-->
+                <!--                                value: 1-->
+                <!--                            },-->
+                <!--                            {-->
+                <!--                                label: '女',-->
+                <!--                                value: 2-->
+                <!--                            }-->
+                <!--                        ]"-->
+                <!--                        @confirm="handleEdit($event, 'sex')"-->
+                <!--                        v-perms="['user.user/edit']"-->
+                <!--                    >-->
+                <!--                        <el-button type="primary" link>-->
+                <!--                            <icon name="el-icon-EditPen" />-->
+                <!--                        </el-button>-->
+                <!--                    </popover-input>-->
+                <!--                </el-form-item>-->
+                <!--                <el-form-item label="联系电话：">-->
+                <!--                    {{ formData.mobile || '-' }}-->
+                <!--                    <popover-input-->
+                <!--                        class="ml-[10px]"-->
+                <!--                        type="number"-->
+                <!--                        @confirm="handleEdit($event, 'mobile')"-->
+                <!--                        v-perms="['user.user/edit']"-->
+                <!--                    >-->
+                <!--                        <el-button type="primary" link>-->
+                <!--                            <icon name="el-icon-EditPen" />-->
+                <!--                        </el-button>-->
+                <!--                    </popover-input>-->
+                <!--                </el-form-item>-->
+                <!--                <el-form-item label="注册来源："> {{ formData.channel }} </el-form-item>-->
+                <el-form-item label="注册时间："> {{ formData.create_time }}</el-form-item>
+                <el-form-item label="最近登录时间："> {{ formData.login_time }}</el-form-item>
+                <el-form-item label="重置密码：">
+                    <span>******</span>
+                    <popover-input
+                        class="ml-[10px]"
+                        type="text"
+                        @confirm="handlePassword($event)"
+                        v-perms="['user.user/edit']"
+                    >
+                        <el-button type="primary" link>
+                            <icon name="el-icon-EditPen" />
+                        </el-button>
+                    </popover-input>
+                </el-form-item>
             </el-form>
         </el-card>
 
@@ -134,10 +147,8 @@
 
 <script lang="ts" setup name="consumerDetail">
 import type { FormInstance } from 'element-plus'
-
-import { adjustMoney, getUserDetail, userEdit } from '@/api/consumer'
+import { adjustMoney, getUserDetail, userEdit, setPassword } from '@/api/consumer'
 import { isEmpty } from '@/utils/util'
-
 import AccountAdjust from '../components/account-adjust.vue'
 
 const route = useRoute()
@@ -191,5 +202,15 @@ const handleConfirmAdjust = async (value: any) => {
     adjustState.show = false
     getDetails()
 }
+
+const handlePassword = async (value: string) => {
+    if (isEmpty(value)) return
+    await setPassword({
+        id: route.query.id,
+        password: value
+    })
+    getDetails()
+}
+
 getDetails()
 </script>

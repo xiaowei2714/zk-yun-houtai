@@ -32,9 +32,9 @@
                         <el-option label="待充值" :value="1" />
                         <el-option label="充值中" :value="2" />
                         <el-option label="充值成功" :value="3" />
+                        <el-option label="部分成功" :value="5" />
                         <el-option label="充值失败" :value="4" />
                     </el-select>
-                    <!--                    <el-input class="w-[280px]" v-model="queryParams.status" clearable placeholder="请输入状态" />-->
                 </el-form-item>
                 <el-form-item label="时间" prop="start_time">
                     <daterange-picker
@@ -55,6 +55,12 @@
                 <el-form-item>
                     <el-button type="primary" @click="findData">查询</el-button>
                     <el-button @click="resetParams">重置</el-button>
+                    <export-data
+                        class="ml-2.5"
+                        :fetch-fun="apiLists"
+                        :params="queryParams"
+                        :page-size="pager.size"
+                    />
                 </el-form-item>
             </el-form>
         </el-card>
@@ -139,6 +145,9 @@
                             <span v-else-if="row.status == 4" style="color: #E24555">
                                 充值失败
                             </span>
+                            <span v-else-if="row.status == 5" style="color: #8d2aa2">
+                                部分成功
+                            </span>
                             <span v-else></span>
                         </template>
                     </el-table-column>
@@ -178,6 +187,7 @@
                             </el-button>
                             <div v-if="row.sa" class="dropdown-content">
                                 <a @click="handleRecharging(row.id)" class="first-a" tabindex="0">充值中</a>
+                                <a @click="handlePartSuccess(row)" class="first-a" tabindex="0">部分成功</a>
                                 <a @click="handleFail(row.id)" tabindex="0">失败</a>
                             </div>
                         </template>
@@ -188,6 +198,15 @@
                 <pagination v-model="pager" @change="getLists" />
             </div>
         </el-card>
+
+        <part-success
+            v-model:show="pageData.show"
+            :id="pageData.id"
+            :price="pageData.price"
+            :pay_price="pageData.pay_price"
+            @confirm="handlePartConfirm"
+        />
+
     </div>
 </template>
 
@@ -204,10 +223,11 @@ import {
     apiSetFail,
     apiSetBatchFail,
     apiGenBalance,
-    apiBatchGenBalance
+    apiBatchGenBalance, apiSetPartSuccess
 } from '@/api/consume_recharge'
 import feedback from '@/utils/feedback'
 import type { TagProps } from 'element-plus'
+import PartSuccess from '@/views/consume_recharge/components/part-success.vue'
 
 // 是否显示编辑框
 const showEdit = ref(false)
@@ -234,6 +254,12 @@ const selectData = ref<any[]>([])
 const tagType = ref<TagProps['type']>('primary')
 const tagEffect = ref<TagProps['effect']>('plain')
 
+const pageData = reactive({
+    id: 0,
+    price: '',
+    pay_price: '',
+    show: false,
+})
 // 表格选择后回调事件
 const handleSelectionChange = (val: any[]) => {
     selectData.value = val.map(({ id }) => id)
@@ -288,6 +314,22 @@ const handleBatchSuccess = async (data: any[]) => {
 
     await feedback.confirm('确定要设置批量成功？')
     await apiSetBatchSuccess({ ids })
+    getLists()
+}
+
+// 点击部分成功
+const handlePartSuccess = async (row: any) => {
+    pageData.id = row.id
+    pageData.price = row.price
+    pageData.pay_price = row.pay_price
+    pageData.show = true
+}
+
+// 部分成功表单提交
+const handlePartConfirm = async (value: any) => {
+    await feedback.confirm('确定要设置部分成功？')
+    pageData.show = false
+    await apiSetPartSuccess(value)
     getLists()
 }
 
@@ -359,17 +401,17 @@ getSum()
 }
 
 .active {
-    top: 16%;
+    top: 13%;
     transform: translateY(-50%) rotate(180deg);
 }
 
 .dropdown-content {
     position: relative;
-    width: 80px;
+    width: 90px;
     background: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 5px;
-    margin-left: 145px;
+    margin-left: 137px;
     border: 1px solid #5B87F0;
     border-radius: 4px;
     transition: opacity 0.3s;

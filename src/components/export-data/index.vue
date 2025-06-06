@@ -126,6 +126,11 @@ const getData = async () => {
         page_size: props.pageSize,
         export: 1
     })
+    console.log(111, {
+        ...props.params,
+        page_size: props.pageSize,
+        export: 1
+    })
     Object.assign(exportData, res)
     formData.file_name = res.file_name
     formData.page_end = res.page_end

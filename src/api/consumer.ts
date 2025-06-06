@@ -15,6 +15,11 @@ export function userEdit(params: any) {
     return request.post({ url: '/user.user/edit', params })
 }
 
+// 修改密码
+export function setPassword(params: any) {
+    return request.post({ url: '/user.user/resetPassword', params })
+}
+
 export function getMealList(params: any) {
     return request.get({ url: '/user.user/getMealList', params })
 }
@@ -26,4 +31,9 @@ export function adjustMoney(params: any) {
 
 export function saveMealList(params: any) {
     return request.post({ url: '/user.user/saveMealList', params })
+}
+
+// 账单
+export function getUserMoneyLog(params: any) {
+    return request.get({ url: '/user.user/userMoneyLog', params })
 }

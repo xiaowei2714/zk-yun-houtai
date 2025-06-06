@@ -30,6 +30,11 @@ export function apiSetBatchSuccess(params: any) {
     return request.post({ url: '/consumeRecharge/setBatchSuccess', params })
 }
 
+// 设置为部分成功
+export function apiSetPartSuccess(params: any) {
+    return request.post({ url: '/consumeRecharge/setPartSuccess', params })
+}
+
 // 设置为充值失败
 export function apiSetFail(params: any) {
     return request.post({ url: '/consumeRecharge/setFail', params })

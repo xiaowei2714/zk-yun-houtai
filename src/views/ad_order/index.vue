@@ -72,10 +72,10 @@
             <div class="mt-4">
                 <el-table :data="pager.lists" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="55" />
-                    <el-table-column label="买家" prop="username" show-overflow-tooltip />
-                    <el-table-column label="卖家" prop="to_username" show-overflow-tooltip />
+                    <el-table-column label="买家" prop="user_sn" show-overflow-tooltip />
+                    <el-table-column label="卖家" prop="to_user_sn" show-overflow-tooltip />
                     <!--                    <el-table-column label="广告" prop="ad_id" show-overflow-tooltip />-->
-                    <el-table-column label="订单号" prop="order_no" show-overflow-tooltip min-width="170" />
+                    <el-table-column label="订单号" prop="order_no" show-overflow-tooltip min-width="180" />
                     <el-table-column label="订单类型" prop="order_type" show-overflow-tooltip>
                         <template #default="{ row }">
                             <span v-if="row.order_type == 1">买入</span>

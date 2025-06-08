@@ -106,7 +106,7 @@
             <div class="mt-4">
                 <el-table :data="pager.lists" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="55" />
-                    <el-table-column label="用户ID" prop="user_id" show-overflow-tooltip />
+                    <el-table-column label="用户ID" prop="user_sn" show-overflow-tooltip />
                     <el-table-column label="金额" prop="money" show-overflow-tooltip />
                     <el-table-column label="提现地址" prop="address" show-overflow-tooltip />
                     <el-table-column label="订单号" prop="order_no" show-overflow-tooltip />

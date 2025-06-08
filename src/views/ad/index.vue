@@ -53,7 +53,7 @@
             <div class="mt-4">
                 <el-table :data="pager.lists" @selection-change="handleSelectionChange">
                     <el-table-column type="selection" width="55" />
-                    <el-table-column label="客户" prop="username" show-overflow-tooltip />
+                    <el-table-column label="用户id" prop="user_sn" show-overflow-tooltip />
                     <el-table-column label="出售数量" prop="num" show-overflow-tooltip>
                         <template #default="{ row }">
                             {{ row.num }} Y币

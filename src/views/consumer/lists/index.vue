@@ -64,6 +64,7 @@
                 <el-table-column label="冻结金额" prop="freeze_money" min-width="120" />
                 <el-table-column label="今日消费" prop="today_price" min-width="120" />
                 <el-table-column label="总消费" prop="total_price" min-width="120" />
+                <el-table-column label="对外code" prop="external_sn" min-width="120" />
                 <!--                <el-table-column label="手机号码" prop="mobile" min-width="100" />-->
                 <!--                <el-table-column label="注册来源" prop="channel" min-width="100" />-->
                 <el-table-column label="注册时间" prop="create_time" min-width="120" />

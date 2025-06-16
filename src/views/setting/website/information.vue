@@ -380,20 +380,18 @@
                                 <div class="form-tips">建议尺寸：100*100px，支持jpg，jpeg，png格式</div>
                             </div>
                         </el-form-item>
-                        <el-form-item label="客服电话" prop="kf_mobile">
+                        <el-form-item prop="kf_mobile">
                             <div class="w-80">
                                 <el-input
                                     v-model.trim="formData.kf_mobile"
-                                    placeholder="请输入客服电话"
                                     show-word-limit
                                 ></el-input>
                             </div>
                         </el-form-item>
-                        <el-form-item label="服务时间" prop="kf_time">
+                        <el-form-item prop="kf_time">
                             <div class="w-80">
                                 <el-input
                                     v-model.trim="formData.kf_time"
-                                    placeholder="请输入服务时间"
                                     show-word-limit
                                 ></el-input>
                             </div>
